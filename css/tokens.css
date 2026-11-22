@@ -1,0 +1,127 @@
+/* ==========================================================================
+   Examinise design tokens (standalone, settled choices only)
+
+   To reuse in a mock or app: copy this file and the `fonts/` folder next to it,
+   then link it before your own CSS:  <link rel="stylesheet" href="examinise-tokens.css">
+
+   Choices baked in (picked 2026-11-21):
+     Accent    charcoal and cream, no colour (near-black in light mode, off-white in dark)
+     Neutrals  pure grey, no warm or cool tint
+     Logo      mono, follows the text colour
+   Still open: status colours (placeholders below), hero card style, final icons.
+
+   Dark mode follows the system. Force it with <html data-theme="dark"> or "light".
+   Depth comes from colour layers and hairlines. There are no shadows.
+   ========================================================================== */
+
+@font-face{font-family:"Geist";src:url("../fonts/Geist-Variable.woff2") format("woff2");font-weight:100 900;font-display:swap}
+@font-face{font-family:"Geist Serif";src:url("../fonts/GeistSerif-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+
+:root{
+  /* Type. Geist Serif has ONE weight (400): never bold it. Geist Sans uses 400, 500, 600. */
+  --font-serif:"Geist Serif",Georgia,serif;
+  --font-sans:"Geist",system-ui,sans-serif;
+
+  /* Shape. Simple single-row things (buttons, inputs, options, rows) are pills.
+     Cards that hold several pieces of information use --radius-lg. */
+  --radius-pill:999px;
+  --radius-lg:24px;
+  --radius-panel:32px;   /* main panel, left corners only; also dialogs and sheets */
+
+  /* One height scale for every control */
+  --h-sm:36px;   /* small buttons, chips, small round buttons */
+  --h-md:48px;   /* buttons, inputs, round buttons, menu rows */
+  --h-lg:56px;   /* list rows, quiz options, profile row */
+  --h-tag:28px;  /* non-interactive tags */
+
+  /* Motion. On by default; honour prefers-reduced-motion by removing big movements (panel slide, sheets). */
+  --ease:cubic-bezier(.32,.72,0,1);
+  --ease-out:cubic-bezier(.2,.7,.2,1);
+  --dur:.22s;
+
+  /* Layout */
+  --sidebar-w:290px;
+  --gutter:20px;         /* side padding on mobile; use 32px on desktop */
+
+  /* ---------- Light: pure grey, charcoal accent ----------
+     Layers, back to front: sidebar, paper (bg), surface, surface-2, pop (menus, dialogs) */
+  --accent:#111111;
+  --on-accent:#FFFFFF;
+  --accent-hover:color-mix(in oklab,var(--accent),#fff 14%);
+  --accent-soft:color-mix(in srgb,var(--accent) 8%,transparent);
+
+  --bg-sidebar:#E6E6E6;
+  --bg:#F5F5F5;
+  --surface:#FFFFFF;
+  --surface-2:#EDEDED;
+  --pop:#FFFFFF;
+  --border:#E0E0E0;
+  --border-strong:#CCCCCC;
+  --text:#111111;
+  --text-muted:#666666;
+  --text-faint:#999999;    /* placeholders and disabled only (under 3:1, not for real text) */
+
+  /* Status (PLACEHOLDERS). Always pair with an icon and words. Tags are solid fills with --on-* text. */
+  --success:#0A8040;  --on-success:#FFFFFF;
+  --warning:#B05800;  --on-warning:#FFFFFF;
+  --danger:#D0201A;   --on-danger:#FFFFFF;
+
+  --scrim:rgba(0,0,0,.45);
+  --focus:var(--accent);
+
+  /* Logo follows the text colour. The "e" is a cut-out, so it shows what is behind it. */
+  --logo-mark:var(--text);
+  --logo-word:var(--text);
+}
+
+/* ---------- Dark ---------- */
+:root[data-theme="dark"]{
+  --accent:#F5F5F5;
+  --on-accent:#111111;
+  --accent-hover:color-mix(in oklab,var(--accent),#000 9%);
+  --accent-soft:color-mix(in srgb,var(--accent) 14%,transparent);
+
+  --bg-sidebar:#121212;
+  --bg:#1C1C1C;
+  --surface:#262626;
+  --surface-2:#303030;
+  --pop:#3A3A3A;
+  --border:#3A3A3A;
+  --border-strong:#4D4D4D;
+  --text:#F2F2F2;
+  --text-muted:#A3A3A3;
+  --text-faint:#7A7A7A;
+
+  --success:#2ED47A;  --on-success:#0B0B0B;
+  --warning:#FFB224;  --on-warning:#0B0B0B;
+  --danger:#FF5C50;   --on-danger:#0B0B0B;
+
+  --scrim:rgba(0,0,0,.6);
+  --focus:var(--text);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --accent:#F5F5F5;
+    --on-accent:#111111;
+    --accent-hover:color-mix(in oklab,var(--accent),#000 9%);
+    --accent-soft:color-mix(in srgb,var(--accent) 14%,transparent);
+
+    --bg-sidebar:#121212;
+    --bg:#1C1C1C;
+    --surface:#262626;
+    --surface-2:#303030;
+    --pop:#3A3A3A;
+    --border:#3A3A3A;
+    --border-strong:#4D4D4D;
+    --text:#F2F2F2;
+    --text-muted:#A3A3A3;
+    --text-faint:#7A7A7A;
+
+    --success:#2ED47A;  --on-success:#0B0B0B;
+    --warning:#FFB224;  --on-warning:#0B0B0B;
+    --danger:#FF5C50;   --on-danger:#0B0B0B;
+
+    --scrim:rgba(0,0,0,.6);
+    --focus:var(--text);
+  }
+}
